@@ -131,10 +131,11 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--show', help="display outdated packages", action="store_true")
     parser.add_argument('-a', '--all', help="force update all packages", action="store_true")
     parser.add_argument('-i', '--install', nargs="+", type=int, help="install only selected packages using indices", )
+    parser.add_argument('-l', '--log', help="whether to log the output of the pip commands", action="store_true")
 
     args = parser.parse_args()
 
-    pu = PackageUpdater(log_output=False)
+    pu = PackageUpdater(log_output=args.log)
     if args.show:
         pu.showOutdatedPackages()
     if args.all:
