@@ -4,7 +4,7 @@ Dumping repository for various utilities written in python. This repository curr
   - [Download manager](https://github.com/guigzzz/PythonUtilities/blob/master/downloads.py)
   - [Progress Bar](https://github.com/guigzzz/PythonUtilities/blob/master/progress_bar.py)
   - [Set-Associative Cache](https://github.com/guigzzz/PythonUtilities/tree/master/Cache)
-  
+  - [Pip package upgrade utility](https://github.com/guigzzz/PythonUtilities/blob/master/pipupdater.py)
   
 # Examples
  
@@ -61,3 +61,23 @@ This produces the following output:
 Cache contents
    Set 0 - Contents: {6: 12, 7: 14, 8: 16, 9: 18}, current size: 4, max size: 4
 ```
+
+## Pipupdater
+
+Example:
+Assuming the following is the output of `python pipupdater.py --show`
+```
+0 - decorator: 4.1.2 -> 4.2.1 [wheel]
+1 - ipykernel: 4.6.1 -> 4.8.2 [wheel]
+2 - ipywidgets: 7.0.4 -> 7.1.2 [wheel]
+3 - jedi: 0.11.0 -> 0.11.1 [wheel]
+4 - jupyter-client: 5.1.0 -> 5.2.3 [wheel]
+5 - jupyterlab: 0.31.8 -> 0.31.12 [wheel]
+6 - Keras: 2.1.2 -> 2.1.5 [wheel]
+7 - Markdown: 2.6.10 -> 2.6.11 [wheel]
+```
+
+- Executing `python pipupdater.py --install 5 6` will update only packages 5 and 6.
+- Exeucting `python pipupdater.py --all` will update everything.
+- If the `--log` or `-l` flag is provided, the program will log the output of each update command to a separate file stored in `pipupdatelogs`.
+- This utility does not make any assumptions on the path of `pip`, and hence can be used on a `Conda` environment.
