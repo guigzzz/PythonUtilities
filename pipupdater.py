@@ -2,6 +2,7 @@ import subprocess
 import platform
 import os
 from urllib.parse import urljoin
+from argparse import ArgumentParser
 
 # detect correct line-break character
 if platform.system() == 'Windows': linebreak = '\r\n'
@@ -77,8 +78,8 @@ class PackageUpdater:
         """
         Print parsed list of outdated packages
         """
-        for p in self.packages:
-            print(p)
+        for i, p in enumerate(self.packages):
+            print('{} - {}'.format(i, p))
 
     def __updatePackage(self, pckg):
         """
@@ -105,13 +106,15 @@ class PackageUpdater:
         """
         if selected is None:
             selected = self.packages
-        
+        else:
+            selected = [self.packages[i] for i in selected]
+
         if selected == []:
             print('> No packages to update.')
             return
 
         print('> UPDATE PLAN')
-        for p in selected: print(p)
+        for i, p in enumerate(selected): print('{} - {}'.format(i, p))
         print()
 
         inp = input('> Good to go? [Y/n]')
@@ -123,5 +126,19 @@ class PackageUpdater:
 
         
 if __name__ == '__main__':
+    
+    parser = ArgumentParser()
+    parser.add_argument('-s', '--show', help="display outdated packages", action="store_true")
+    parser.add_argument('-a', '--all', help="force update all packages", action="store_true")
+    parser.add_argument('-i', '--install', nargs="+", type=int, help="install only selected packages using indices", )
+
+    args = parser.parse_args()
+
     pu = PackageUpdater(log_output=False)
-    pu.updatePackages()
+    if args.show:
+        pu.showOutdatedPackages()
+    if args.all:
+        pu.updatePackages()
+    if args.install:
+        pu.updatePackages(selected=args.install)
+
