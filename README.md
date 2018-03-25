@@ -10,7 +10,7 @@ Dumping repository for various utilities written in python. This repository curr
  
 ## Download Manager
 
-```
+```python
 from downloads import Downloader
 import sys
 
@@ -22,7 +22,7 @@ d.download()
 
 ## Progress Bar
 
-```
+```python
 from progress_bar import ProgressBar
 from time import sleep
 
@@ -36,7 +36,7 @@ for i in pb(range(100)):
 
 ## Cache
 
-```
+```python
 from Cache import Cache
 from Cache.replacement_algorithms import LRU
 
